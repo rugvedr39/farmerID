@@ -1,0 +1,26 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow-sm p-4">
+        <div class="text-center mb-4">
+          <h3 class="fw-bold text-primary">Admin Login</h3>
+        </div>
+        <form (ngSubmit)="login()">
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input id="username" [(ngModel)]="username" name="username" class="form-control" required [disabled]="isLoading">
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input id="password" type="password" [(ngModel)]="password" name="password" class="form-control" required [disabled]="isLoading">
+          </div>
+          <button type="submit" class="btn btn-primary w-100 fw-bold py-2 mb-2 rounded-pill shadow-sm" [disabled]="isLoading">
+            <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2"></span>
+            {{ isLoading ? 'Logging in...' : 'Login' }}
+          </button>
+        </form>
+        <div *ngIf="message" class="alert alert-info mt-3">{{ message }}</div>
+      </div>
+    </div>
+  </div>
+</div> 

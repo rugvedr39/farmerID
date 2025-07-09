@@ -1,0 +1,40 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-10">
+      <div class="card shadow-sm p-4">
+        <h2 class="fw-bold text-primary mb-3 text-center">Your Wallet Top-up Transactions</h2>
+        <div *ngIf="message" class="alert alert-info">{{ message }}</div>
+        <div *ngIf="isLoading" class="text-center my-4">
+          <span class="spinner-border text-primary"></span>
+        </div>
+        <div class="table-responsive">
+          <table *ngIf="!isLoading && topups.length" class="table table-bordered table-hover align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>Coins</th>
+                <th>UTR</th>
+                <th>Status</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let t of topups">
+                <td>{{ t.coins }}</td>
+                <td>{{ t.utr }}</td>
+                <td>
+                  <span [ngClass]="{
+                    'badge bg-warning text-dark': t.status === 'pending',
+                    'badge bg-success': t.status === 'approved',
+                    'badge bg-danger': t.status === 'rejected'
+                  }">{{ t.status }}</span>
+                </td>
+                <td>{{ t.created_at | date:'short' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div *ngIf="!isLoading && !topups.length" class="text-muted text-center mt-3">No transaction records found.</div>
+      </div>
+    </div>
+  </div>
+</div> 

@@ -1,0 +1,196 @@
+<!-- Banner/Header -->
+<div
+  style="
+    background: linear-gradient(90deg, #3b82f6 0%, #9333ea 100%);
+    border-radius: 1.5rem;
+    padding: 2.5rem 1rem;
+    margin: 2rem;
+    color: #fff;
+    text-align: center;"
+>
+  <h1 style="font-size: 2.25rem; font-weight: 700; margin-bottom: 0.5rem;">
+    Farmer ID Card Generator
+  </h1>
+  <p style="font-size: 1.125rem; margin: 0;">
+    Create professional farmer identity cards with QR codes
+  </p>
+</div>
+
+<!-- Wallet Section -->
+<div *ngIf="!isLoading; else loading"
+     style="
+       display: flex;
+       flex-wrap: wrap;
+       gap: 1.5rem;
+       justify-content: center;"
+>
+  <!-- Wallet Card -->
+  <div
+    style="
+      background: #f8fafc;
+      border-radius: 1rem;
+      padding: 1.75rem;
+      flex: 1 1 300px;
+      max-width: 480px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);"
+  >
+    <div style="display: flex; align-items: center; margin-bottom: 1.25rem;">
+      <span
+        style="
+          background: #7c3aed;
+          color: #fff;
+          border-radius: 50%;
+          padding: 0.5rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: 0.75rem;"
+      >
+        <i class="fa-solid fa-wallet"></i>
+      </span>
+      <h2 style="margin: 0; font-size: 1.5rem; font-weight: 600;">Your Wallet</h2>
+      <span
+        style="
+          margin-left: auto;
+          background: #fff;
+          color: #7c3aed;
+          border-radius: 1.25rem;
+          padding: 0.4rem 1rem;
+          font-weight: 600;
+          font-size: 1rem;
+          box-shadow: 0 1px 4px rgba(0,0,0,0.06);"
+      >
+        <i class="fa-solid fa-coins"></i> {{ coins }} coins
+      </span>
+    </div>
+
+    <button
+      style="
+        background: #22c55e;
+        color: #fff;
+        border: none;
+        border-radius: 0.5rem;
+        padding: 0.75rem 1.25rem;
+        font-size: 1rem;
+        font-weight: 600;
+        width: 100%;
+        margin-bottom: 1.5rem;"
+      (click)="openTopupModal()"
+    >
+      + Add Money to Wallet
+    </button>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+      <div
+        style="
+          flex: 1 1 140px;
+          background: #fff;
+          border-radius: 0.75rem;
+          padding: 1rem;
+          text-align: center;"
+      >
+        <div style="color: #64748b; font-size: 0.95rem;">Available</div>
+        <div style="font-size: 1.4rem; font-weight: 700;">{{ coins }}</div>
+      </div>
+      <div
+        style="
+          flex: 1 1 140px;
+          background: #fff;
+          border-radius: 0.75rem;
+          padding: 1rem;
+          text-align: center;"
+      >
+        <div style="color: #64748b; font-size: 0.95rem;">Rate</div>
+        <div style="font-size: 1.2rem; font-weight: 600;">
+          {{ rate }} <i class="fa-solid fa-coins"></i> / card
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Info Card -->
+  <div
+    style="
+      background: #f1f5f9;
+      border-radius: 1rem;
+      padding: 1.75rem;
+      flex: 1 1 300px;
+      max-width: 480px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);"
+  >
+    <h3
+      style="
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;"
+    >
+      <i class="fa-regular fa-lightbulb"></i> Quick Info
+    </h3>
+    <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.95rem; line-height: 1.5;">
+      <li style="margin-bottom: 0.75rem;">
+        <span style="color: #3b82f6;">●</span> Each ID card download costs <strong>50 coins</strong>
+      </li>
+      <li style="margin-bottom: 0.75rem;">
+        <span style="color: #22c55e;">●</span> Buy plans to get more coins at better rates
+      </li>
+      <li>
+        <span style="color: #9333ea;">●</span> Professional quality guaranteed
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- Loading State -->
+<ng-template #loading>
+  <div style="text-align:center; margin-top: 3rem;">
+    <span
+      class="spinner-border text-primary"
+      style="width: 3rem; height: 3rem;"
+    ></span>
+    <div class="mt-3">Loading wallet info...</div>
+  </div>
+</ng-template>
+
+<!-- Add Money to Wallet Modal -->
+<div class="modal fade show" tabindex="-1" [ngStyle]="{ display: showTopupModal ? 'block' : 'none', background: 'rgba(0,0,0,0.5)' }" *ngIf="showTopupModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Money to Wallet</h5>
+        <button type="button" class="btn-close" (click)="closeTopupModal()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="coins" class="form-label">Number of Coins</label>
+          <input id="coins" type="number" class="form-control" [(ngModel)]="topupCoins" (input)="onCoinsInput()" min="1" [disabled]="isSubmitting">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Amount to Pay</label>
+          <div class="fw-bold">₹ {{ topupAmount }}</div>
+        </div>
+        <div class="mb-3 text-center" *ngIf="qrUrl">
+          <img [src]="qrUrl" alt="UPI QR Code" style="width: 200px; height: 200px;">
+          <div class="mt-2 small">Scan this QR with any UPI app</div>
+          <div class="mt-1">UPI ID: <span class="fw-bold">{{ upiId }}</span></div>
+        </div>
+        <div class="mb-3">
+          <label for="utr" class="form-label">Enter UTR (Transaction Reference)</label>
+          <input id="utr" type="text" class="form-control" [(ngModel)]="utr" [disabled]="isSubmitting">
+        </div>
+        <div *ngIf="topupMessage" class="alert alert-info">{{ topupMessage }}</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeTopupModal()" [disabled]="isSubmitting">Close</button>
+        <button type="button" class="btn btn-success" (click)="submitTopup()" [disabled]="isSubmitting || !topupCoins || !utr || (coins === 0 && topupCoins < 250)">
+          <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-1"></span>
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-farmer-id-card-form></app-farmer-id-card-form>

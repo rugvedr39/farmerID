@@ -1,0 +1,81 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-2 sticky-top" aria-label="Main Navigation">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold text-primary fs-4" routerLink="/home" aria-label="All Digital Services Home">
+      All Digital Services
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#mainNav" aria-controls="mainNav" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse d-none d-lg-flex justify-content-center" id="navbarNav">
+      <ul class="navbar-nav gap-2">
+        <li class="nav-item"><a class="nav-link" routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/about" routerLinkActive="active">About</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/plans" routerLinkActive="active">Plans</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/contact" routerLinkActive="active">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/disclaimer" routerLinkActive="active">Disclaimer</a></li>
+      </ul>
+    </div>
+    <div class="d-none d-lg-flex ms-auto align-items-center">
+      <!-- Show when NOT logged in -->
+      <div *ngIf="!isLoggedIn" class="d-flex gap-2">
+        <a class="btn btn-outline-primary rounded-pill px-4 fw-bold d-flex align-items-center gap-2" routerLink="/register">
+          <i class="fa-solid fa-user-plus"></i> Sign Up
+        </a>
+        <a class="btn btn-outline-success rounded-pill px-4 fw-bold d-flex align-items-center gap-2" routerLink="/login">
+          <i class="fa-solid fa-user"></i> Sign In
+        </a>
+      </div>
+      <!-- Show when logged in -->
+      <div *ngIf="isLoggedIn" class="d-flex gap-2">
+        <a class="btn btn-primary rounded-pill px-4 fw-bold d-flex align-items-center gap-2" routerLink="/dashboard">
+          <i class="fa-solid fa-tachometer-alt"></i> Dashboard
+        </a>
+        <a class="btn btn-outline-info rounded-pill px-4 fw-bold d-flex align-items-center gap-2" routerLink="/transactions">
+          <i class="fa-solid fa-list"></i> Transaction History
+        </a>
+        <button class="btn btn-outline-danger rounded-pill px-4 fw-bold d-flex align-items-center gap-2" (click)="logout()">
+          <i class="fa-solid fa-sign-out-alt"></i> Logout
+        </button>
+      </div>
+    </div>
+    <!-- Offcanvas for mobile -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="mainNav" aria-labelledby="mainNavLabel">
+      <div class="offcanvas-header">
+        <a class="navbar-brand fw-bold text-primary fs-4" routerLink="/home">
+          All Digital Services
+        </a>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body d-flex flex-column gap-3">
+        <a class="nav-link" routerLink="/home" routerLinkActive="active" data-bs-dismiss="offcanvas">Home</a>
+        <a class="nav-link" routerLink="/about" routerLinkActive="active" data-bs-dismiss="offcanvas">About</a>
+        <a class="nav-link" routerLink="/plans" routerLinkActive="active" data-bs-dismiss="offcanvas">Plans</a>
+        <a class="nav-link" routerLink="/contact" routerLinkActive="active" data-bs-dismiss="offcanvas">Contact</a>
+        <a class="nav-link" routerLink="/disclaimer" routerLinkActive="active" data-bs-dismiss="offcanvas">Disclaimer</a>
+        
+        <!-- Show when NOT logged in (mobile) -->
+        <div *ngIf="!isLoggedIn" class="mt-2">
+          <a class="btn btn-outline-primary rounded-pill px-4 fw-bold d-flex align-items-center gap-2 mb-2" routerLink="/register" data-bs-dismiss="offcanvas">
+            <i class="fa-solid fa-user-plus"></i> Sign Up
+          </a>
+          <a class="btn btn-outline-success rounded-pill px-4 fw-bold d-flex align-items-center gap-2" routerLink="/login" data-bs-dismiss="offcanvas">
+            <i class="fa-solid fa-user"></i> Sign In
+          </a>
+        </div>
+        
+        <!-- Show when logged in (mobile) -->
+        <div *ngIf="isLoggedIn" class="mt-2">
+          <a class="btn btn-primary rounded-pill px-4 fw-bold d-flex align-items-center gap-2 mb-2" routerLink="/dashboard" data-bs-dismiss="offcanvas">
+            <i class="fa-solid fa-tachometer-alt"></i> Dashboard
+          </a>
+          <a class="btn btn-outline-info rounded-pill px-4 fw-bold d-flex align-items-center gap-2 mb-2" routerLink="/transactions" data-bs-dismiss="offcanvas">
+            <i class="fa-solid fa-list"></i> Transaction History
+          </a>
+          <button class="btn btn-outline-danger rounded-pill px-4 fw-bold d-flex align-items-center gap-2" (click)="logout()" data-bs-dismiss="offcanvas">
+            <i class="fa-solid fa-sign-out-alt"></i> Logout
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

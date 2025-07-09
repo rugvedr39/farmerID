@@ -1,0 +1,194 @@
+<div class="container py-4">
+  <div class="card shadow-sm p-4 position-relative">
+    <h2 class="fw-bold mb-4 text-primary text-center">Generate Farmer ID Card</h2>
+    
+    <!-- Form Error Summary -->
+    <div *ngIf="form.invalid && submitted" class="alert alert-danger">
+      Please correct the highlighted errors below.
+    </div>
+
+    <!-- Balance Display -->
+    <div class="text-end mb-3">
+      <span class="badge bg-info fs-6">
+        <i class="fa-solid fa-coins me-1"></i>
+        Balance: {{ userBalance }} coins
+      </span>
+    </div>
+
+    <!-- Spinner Overlay -->
+    <div *ngIf="isLoading" class="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center" style="background: rgba(255,255,255,0.7); z-index: 10; min-height: 400px;">
+      <div class="spinner-border text-success" style="width: 4rem; height: 4rem;" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <div class="mt-3 fw-bold text-success">Processing, please wait...</div>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <!-- Language Selector -->
+      <div class="mb-4">
+        <label class="form-label fw-semibold">Select Language</label>
+        <select class="form-select w-auto" formControlName="language" (change)="onLanguageChange()">
+          <option *ngFor="let lang of languages" [value]="lang">{{ lang }}</option>
+        </select>
+      </div>
+
+      <div class="row g-4">
+        <!-- Photo Upload -->
+        <div class="col-md-3">
+          <label class="form-label fw-semibold w-100">{{ labels.uploadPhoto }}</label>
+          <div
+            class="border border-dashed rounded d-flex flex-column align-items-center justify-content-center mb-2"
+            [ngClass]="{'is-invalid': form.get('photo')?.invalid && (form.get('photo')?.touched || submitted)}"
+            style="width: 160px; height: 160px; cursor: pointer;"
+            (click)="photoInput.click()"
+          >
+            <ng-container *ngIf="!photoPreview">
+              <i class="fa-solid fa-camera fa-2x text-secondary mb-2"></i>
+              <div class="text-secondary">{{ labels.clickToUpload }}</div>
+            </ng-container>
+            <img *ngIf="photoPreview" [src]="photoPreview" alt="Preview"
+                 class="img-fluid rounded" style="object-fit: cover; width: 100%; height: 100%;" />
+            <input #photoInput type="file" accept="image/*" (change)="onPhotoChange($event)" hidden />
+          </div>
+          <div *ngIf="form.get('photo')?.invalid && (form.get('photo')?.touched || submitted)" class="text-danger small mt-1">
+            Photo is required.
+          </div>
+        </div>
+
+        <!-- Form Fields -->
+        <div class="col-md-9">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">{{ labels.nameEnglish }}</label>
+              <input class="form-control" formControlName="nameEnglish" [placeholder]="labels.nameEnglish"
+                [ngClass]="{'is-invalid': form.get('nameEnglish')?.invalid && (form.get('nameEnglish')?.touched || submitted)}" />
+              <div *ngIf="form.get('nameEnglish')?.invalid && (form.get('nameEnglish')?.touched || submitted)" class="text-danger small mt-1">
+                Name (English) is required.
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">{{ labels.mobile }}</label>
+              <input class="form-control" formControlName="mobile" [placeholder]="labels.mobile"
+                [ngClass]="{'is-invalid': form.get('mobile')?.invalid && (form.get('mobile')?.touched || submitted)}" />
+              <div *ngIf="form.get('mobile')?.errors && (form.get('mobile')?.touched || submitted)" class="text-danger small mt-1">
+                <span *ngIf="form.get('mobile')?.errors?.['required']">Mobile number is required.</span>
+                <span *ngIf="form.get('mobile')?.errors?.['pattern']">Enter a valid 10-digit mobile number.</span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">{{ labels.nameLocal }}</label>
+              <input class="form-control" formControlName="nameMarathi" [placeholder]="labels.nameLocal"
+                [ngClass]="{'is-invalid': form.get('nameMarathi')?.invalid && (form.get('nameMarathi')?.touched || submitted)}" />
+              <div *ngIf="form.get('nameMarathi')?.invalid && (form.get('nameMarathi')?.touched || submitted)" class="text-danger small mt-1">
+                Name (Local) is required.
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">{{ labels.aadhar }}</label>
+              <input class="form-control" formControlName="aadhar" [placeholder]="labels.aadhar"
+                [ngClass]="{'is-invalid': form.get('aadhar')?.invalid && (form.get('aadhar')?.touched || submitted)}" />
+              <div *ngIf="form.get('aadhar')?.errors && (form.get('aadhar')?.touched || submitted)" class="text-danger small mt-1">
+                <span *ngIf="form.get('aadhar')?.errors?.['required']">Aadhar number is required.</span>
+                <span *ngIf="form.get('aadhar')?.errors?.['pattern']">Enter a valid 12-digit Aadhar number.</span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">{{ labels.farmerId }}</label>
+              <input class="form-control" formControlName="farmerId" [placeholder]="labels.farmerId"
+                [ngClass]="{'is-invalid': form.get('farmerId')?.invalid && (form.get('farmerId')?.touched || submitted)}" />
+              <div *ngIf="form.get('farmerId')?.errors && (form.get('farmerId')?.touched || submitted)" class="text-danger small mt-1">
+                <span *ngIf="form.get('farmerId')?.errors?.['required']">farmerId number is required.</span>
+                <span *ngIf="form.get('farmerId')?.errors?.['pattern']">Enter a valid 11-digit farmerId number.</span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">{{ labels.dob }}</label>
+              <input class="form-control" type="date" formControlName="dob"
+                [ngClass]="{'is-invalid': form.get('dob')?.invalid && (form.get('dob')?.touched || submitted)}" />
+              <div *ngIf="form.get('dob')?.invalid && (form.get('dob')?.touched || submitted)" class="text-danger small mt-1">
+                Date of Birth is required.
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">{{ labels.gender }}</label>
+              <select class="form-select" formControlName="gender"
+                [ngClass]="{'is-invalid': form.get('gender')?.invalid && (form.get('gender')?.touched || submitted)}">
+                <option value="">{{ labels.selectGender }}</option>
+                <option *ngFor="let g of genders" [value]="g">{{ g }}</option>
+              </select>
+              <div *ngIf="form.get('gender')?.invalid && (form.get('gender')?.touched || submitted)" class="text-danger small mt-1">
+                Gender is required.
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">{{ labels.address }}</label>
+              <input class="form-control" formControlName="addressMarathi" [placeholder]="labels.address"
+                [ngClass]="{'is-invalid': form.get('addressMarathi')?.invalid && (form.get('addressMarathi')?.touched || submitted)}" />
+              <div *ngIf="form.get('addressMarathi')?.invalid && (form.get('addressMarathi')?.touched || submitted)" class="text-danger small mt-1">
+                Address is required.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Land Details -->
+      <div class="mt-4" formArrayName="landDetails">
+        <h5 class="fw-bold">{{ labels.landDetails }}</h5>
+        <div class="row g-2 mb-2 align-items-center"
+        *ngFor="let row of landDetails.controls; let i = index"
+        [formGroupName]="i">
+          <div class="col-6 col-md-2">
+            <input class="form-control" formControlName="district" placeholder="District" />
+          </div>
+          <div class="col-6 col-md-2">
+            <input class="form-control" formControlName="subDist" placeholder="Sub Dist" />
+          </div>
+          <div class="col-6 col-md-2">
+            <input class="form-control" formControlName="village" placeholder="Village" />
+          </div>
+          <div class="col-6 col-md-2">
+            <input class="form-control" formControlName="sno" placeholder="S.No." />
+          </div>
+          <div class="col-6 col-md-2">
+            <input class="form-control" formControlName="area" placeholder="Area" />
+          </div>
+        </div>
+        <div class="d-flex gap-2 mb-3">
+          <button type="button" class="btn btn-outline-primary btn-sm" (click)="addLandRow()">+ Add Row</button>
+          <button type="button" class="btn btn-outline-danger btn-sm" (click)="removeLandRow()" [disabled]="landDetails.length === 1">- Remove Row</button>
+        </div>
+      </div>
+
+      <div class="text-center mt-4">
+        <button type="submit" class="btn btn-success px-4 py-2 fw-bold">
+          <i class="fa-solid fa-save me-2"></i> Generate Farmer ID Card (Cost: 50 coins)
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Show generated card images after submission -->
+  <div *ngIf="frontCardUrl || backCardUrl" class="mt-4">
+    <h4 class="text-success mb-3">Your Farmer ID Card</h4>
+    <div class="row g-4">
+      <div class="col-md-6 text-center">
+        <h6>Front Side</h6>
+        <img *ngIf="frontCardUrl" [src]="frontCardUrl" alt="Front Card" class="img-fluid border rounded shadow-sm mb-2" style="max-width: 100%; height: auto;" />
+        <br />
+        <a *ngIf="frontCardUrl" [href]="frontCardUrl" download="farmer_id_front.jpg" class="btn btn-outline-primary btn-sm mt-2">Download Front</a>
+      </div>
+      <div class="col-md-6 text-center">
+        <h6>Back Side</h6>
+        <img *ngIf="backCardUrl" [src]="backCardUrl" alt="Back Card" class="img-fluid border rounded shadow-sm mb-2" style="max-width: 100%; height: auto;" />
+        <br />
+        <a *ngIf="backCardUrl" [href]="backCardUrl" download="farmer_id_back.jpg" class="btn btn-outline-primary btn-sm mt-2">Download Back</a>
+      </div>
+    </div>
+    <div class="text-center mt-3">
+      <button class="btn btn-danger fw-bold" (click)="downloadCardPdf()">
+        <i class="fa-solid fa-file-pdf me-2"></i>Download Both Sides as PDF
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-10">
+      <div class="card shadow-sm p-4 text-center" style="position: relative;">
+        <button (click)="logout()" class="btn btn-danger position-absolute" style="top: 1rem; right: 1rem;">Logout</button>
+        <h2 class="fw-bold text-primary mb-3">Admin Dashboard</h2>
+        <p>Welcome, Admin! This is your dashboard.</p>
+        <a routerLink="/admin/users" class="btn btn-outline-primary mt-3 mb-2">Go to User Management</a>
+        <a routerLink="/admin/topups" class="btn btn-outline-success mt-2 mb-2">Approve Wallet Top-ups</a>
+        <a routerLink="/admin/transactions" class="btn btn-outline-info mt-2 mb-4">Transaction Records</a>
+        <div class="mb-4">
+          <h4 class="mb-3">UPI ID for Wallet Top-ups</h4>
+          <form (ngSubmit)="updateUpiId()" class="d-flex flex-wrap gap-2 justify-content-center align-items-center">
+            <input type="text" [(ngModel)]="upiId" name="upiId" class="form-control" placeholder="Enter UPI ID" style="max-width: 300px;" [disabled]="isUpiLoading">
+            <button type="submit" class="btn btn-success" [disabled]="isUpiLoading">
+              <span *ngIf="isUpiLoading" class="spinner-border spinner-border-sm me-1"></span>
+              Update UPI ID
+            </button>
+          </form>
+          <div *ngIf="upiMessage" class="alert alert-info mt-2">{{ upiMessage }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

@@ -1,0 +1,173 @@
+.footer-main {
+  border-top: 1px solid #e0e0e0;
+  background: #fff;
+  font-size: 0.98rem;
+  box-shadow: 0 -2px 8px rgba(60,60,60,0.04);
+}
+.footer-main a {
+  color: #757575;
+  transition: color 0.2s;
+}
+.footer-main a:hover {
+  color: #388e3c;
+  text-decoration: underline;
+}
+@media (max-width: 767.98px) {
+  .footer-main .container {
+    flex-direction: column !important;
+    gap: 0.5rem;
+    text-align: center;
+  }
+}
+
+/* Optional: sticky footer for short pages */
+:host {
+  display: block;
+  width: 100%;
+}
+
+.footer-dark {
+  background: linear-gradient(120deg, #1a2233 70%, #232b39 100%);
+  color: #e3e8ee;
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  box-shadow: 0 -4px 32px rgba(24,31,42,0.18);
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  font-size: 0.91rem;
+  border-top: 1.5px solid #232b39;
+  backdrop-filter: blur(2px);
+}
+.footer-dark .text-light {
+  color: #fff !important;
+}
+.footer-dark .text-light-50 {
+  color: #b0b8c1 !important;
+}
+.footer-dark .footer-link {
+  color: #e3e8ee;
+  text-decoration: none;
+  transition: color 0.2s, font-weight 0.2s, transform 0.18s;
+  font-size: 0.96rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  border-radius: 6px;
+  padding: 1px 4px;
+  margin-bottom: 0.2rem;
+  display: inline-block;
+}
+.footer-dark .footer-link i {
+  transition: color 0.2s, transform 0.18s;
+}
+.footer-dark .footer-link:hover {
+  color: #4caf50;
+  text-decoration: underline;
+  font-weight: 500;
+  background: rgba(76,175,80,0.08);
+  transform: translateY(-2px) scale(1.04);
+}
+.footer-dark .footer-link:hover i {
+  color: #4caf50;
+  transform: scale(1.18) rotate(-8deg);
+}
+.footer-dark .footer-telegram-btn {
+  transition: box-shadow 0.2s, background 0.2s, transform 0.18s;
+}
+.footer-dark .footer-telegram-btn:hover {
+  box-shadow: 0 6px 32px rgba(37,99,235,0.25);
+  background: linear-gradient(90deg, #1d4ed8 60%, #2563eb 100%);
+  transform: translateY(-2px) scale(1.04);
+}
+.footer-dark .footer-telegram-btn i {
+  transition: color 0.2s, transform 0.18s;
+}
+.footer-dark .footer-telegram-btn:hover i {
+  color: #fff700;
+  transform: scale(1.18) rotate(8deg);
+}
+.footer-dark .footer-disclaimer-box {
+  background: rgba(35,43,57,0.95);
+  color: #ffd600;
+  font-size: 0.93rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+  border-left: 5px solid #ffd600;
+  font-weight: 500;
+  margin-bottom: 1.2rem;
+  margin-top: 0.5rem;
+  padding: 0.7rem 1rem;
+}
+.footer-dark .footer-divider {
+  border-color: #232b39;
+  opacity: 0.5;
+}
+.footer-dark .btn-primary {
+  background: linear-gradient(90deg, #2563eb 60%, #1d4ed8 100%);
+  border: none;
+  box-shadow: 0 2px 16px rgba(37,99,235,0.18);
+  border-radius: 10px;
+  font-size: 0.97rem;
+  padding: 0.5rem 1.2rem;
+  transition: box-shadow 0.2s, background 0.2s, transform 0.15s;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin-top: 0.5rem;
+}
+.footer-dark .btn-primary:hover {
+  background: linear-gradient(90deg, #1d4ed8 60%, #2563eb 100%);
+  box-shadow: 0 4px 24px rgba(37,99,235,0.22);
+  transform: translateY(-2px) scale(1.03);
+}
+.footer-dark .text-success {
+  color: #4caf50 !important;
+}
+.footer-dark .fw-bold, .footer-dark .fs-5 {
+  font-size: 1.01rem !important;
+  font-weight: 600 !important;
+}
+.footer-dark .fs-4 {
+  font-size: 1.08rem !important;
+}
+.footer-dark .footer-section-title {
+  font-size: 0.99rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.7rem;
+  letter-spacing: 0.01em;
+}
+.footer-dark ul {
+  margin-bottom: 0;
+}
+.footer-dark .container {
+  padding-left: 1.2rem;
+  padding-right: 1.2rem;
+}
+.footer-dark .row > div {
+  margin-bottom: 1.1rem;
+}
+@media (max-width: 991.98px) {
+  .footer-dark .container {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .footer-dark .row {
+    gap: 1rem 0;
+  }
+}
+@media (max-width: 767.98px) {
+  .footer-dark .container {
+    flex-direction: column !important;
+    gap: 0.5rem;
+    text-align: center;
+  }
+  .footer-dark .row {
+    flex-direction: column;
+    gap: 1rem 0;
+  }
+  .footer-dark .footer-disclaimer-box {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 99%;
+  }
+}

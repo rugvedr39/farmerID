@@ -1,0 +1,123 @@
+/* Ensure logo and text are vertically centered */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Center menu items and push Sign In to the right on large screens */
+@media (min-width: 992px) {
+  .navbar .d-lg-flex {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+  .navbar .d-lg-flex .nav-link {
+    font-size: 1.1rem;
+    margin: 0 0.75rem;
+    color: #333;
+    transition: color 0.2s;
+  }
+  .navbar .d-lg-flex .nav-link.active,
+  .navbar .d-lg-flex .nav-link:hover {
+    color: #388e3c;
+    font-weight: bold;
+  }
+  .navbar .d-lg-flex .text-dark {
+    margin-left: auto;
+    margin-right: 0;
+  }
+  .navbar .d-lg-flex .btn {
+    margin-left: 2rem;
+    font-size: 1.05rem;
+    padding: 0.5rem 1.5rem;
+  }
+}
+
+/* Hide offcanvas on large screens */
+@media (min-width: 992px) {
+  .offcanvas {
+    display: none !important;
+  }
+}
+
+/* Add shadow and rounded corners to the logo */
+.navbar-brand img {
+  box-shadow: 0 2px 8px rgba(60, 60, 60, 0.08);
+  border-radius: 8px;
+}
+
+/* Responsive tweaks for mobile */
+@media (max-width: 991.98px) {
+  .navbar .d-lg-flex {
+    display: none !important;
+  }
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  box-shadow: 0 4px 24px rgba(60, 60, 60, 0.13), 0 1.5px 4px rgba(60, 60, 60, 0.08);
+}
+
+.offcanvas {
+  max-width: 75vw;
+  width: 75vw;
+  min-width: 240px;
+  padding: 1.2rem 1.2rem 1rem 1.2rem;
+  z-index: 1200;
+  transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+@media (max-width: 575.98px) {
+  .offcanvas {
+    width: 75vw;
+    max-width: 75vw;
+    min-width: 220px;
+    padding: 1.2rem 0.5rem 1rem 0.5rem;
+  }
+  .offcanvas-body {
+    padding: 0;
+  }
+  .offcanvas .nav-link, .offcanvas .btn {
+    font-size: 1.08rem;
+    padding: 0.9rem 0.5rem;
+    margin-bottom: 0.5rem;
+    width: 100%;
+    text-align: left;
+    border-radius: 8px;
+  }
+}
+.offcanvas .nav-link, .offcanvas .btn {
+  font-size: 1.01rem;
+  padding: 0.7rem 0.8rem;
+  margin-bottom: 0.3rem;
+  width: 100%;
+  text-align: left;
+  border-radius: 8px;
+  transition: background 0.18s, color 0.18s, transform 0.18s;
+}
+.offcanvas .nav-link.active, .offcanvas .nav-link:hover {
+  background: #e8f5e9;
+  color: #2563eb;
+  font-weight: 600;
+  transform: translateX(4px);
+}
+.offcanvas .btn {
+  font-weight: 600;
+  margin-top: 0.7rem;
+  background: #fff;
+  border: 1.5px solid #4caf50;
+  color: #2563eb;
+}
+.offcanvas .btn:hover {
+  background: #e3f2fd;
+  color: #1d4ed8;
+  border-color: #2563eb;
+}
+body.offcanvas-backdrop-open {
+  overflow: hidden !important;
+  position: fixed !important;
+  width: 100vw;
+}
