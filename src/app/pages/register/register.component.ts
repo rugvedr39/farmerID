@@ -17,9 +17,7 @@ export class RegisterComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-  ) {
-    alert("For Testing Purpose Use 123456 As OTP")
-  }
+  ) {}
 
   sendOTP() {
     if (!this.email) {
